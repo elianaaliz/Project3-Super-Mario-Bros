@@ -7,6 +7,28 @@ window.addEventListener("load", function () {
     Q.touch();
 
     var gameOver = false;   //?
+
+    Q.Sprite.extend("Bloopa",{
+        init: function (p) {
+
+            this._super(p, {
+                sprite: "goomba", sheet: "goomba",
+                vx: 30,
+            });
+            this.add('2d, aiBounce, Enemy');
+        },
+
+        step:function(dt){
+            if(!gameOver){
+                //algo
+            } 
+            else{
+                //algo mas
+                this.del('2d');
+            } 
+        }
+    });
+
      /**------------------SPRITE GOOMBA----------------- */
     Q.component("Enemy", {
 		added: function(){
@@ -14,7 +36,6 @@ window.addEventListener("load", function () {
 	      		if(collision.obj.isA("Mario")) { 
                       this.p.vx = 0;
                       this.destroy();   
-	        		collision.obj.p.vy = -200;
 	      		}
 	    	});
 
