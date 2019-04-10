@@ -7,30 +7,48 @@ window.addEventListener("load", function () {
     Q.touch();
 
     var gameOver = false;   //?
+     /**------------------SPRITE BLOOPA----------------- */
+     Q.component("Enemy_B", {
+		added: function(){
+			this.entity.on("bump.top",function(collision) { //muere Enemy
+	      		if(collision.obj.isA("Mario")) { 
+                      this.p.vy = 0;
+                      this.destroy();   
+	      		}
+	    	});
+
+	    	this.entity.on("bump.left,bump.right,bump.bottom",function(collision) { //muere Mario por debajo tambien
+	    		if(collision.obj.isA("Mario")) { 
+	        		collision.obj.dying();
+	      		}
+	    	});
+
+		}
+    });
 
     Q.Sprite.extend("Bloopa",{
         init: function (p) {
 
             this._super(p, {
-                sprite: "goomba", sheet: "goomba",
-                vx: 30,
+                sprite: "bloopa", sheet: "bloopa",
+                vy: -400,
             });
-            this.add('2d, aiBounce, Enemy');
+            this.add('2d, aiBounce, Enemy_B');
         },
 
         step:function(dt){
             if(!gameOver){
-                //algo
-            } 
-            else{
-                //algo mas
+                if(this.p.vy == 0){
+                    this.p.vy = -420;
+                }
+            }else{
                 this.del('2d');
-            } 
+            }
         }
     });
 
      /**------------------SPRITE GOOMBA----------------- */
-    Q.component("Enemy", {
+    Q.component("Enemy_G", {
 		added: function(){
 			this.entity.on("bump.top",function(collision) { //muere Enemy
 	      		if(collision.obj.isA("Mario")) { 
@@ -55,7 +73,7 @@ window.addEventListener("load", function () {
                 sprite: "goomba", sheet: "goomba",
                 vx: 30,
             });
-            this.add('2d, aiBounce, Enemy');
+            this.add('2d, aiBounce, Enemy_G');
         },
 
         step:function(dt){
@@ -74,7 +92,7 @@ window.addEventListener("load", function () {
 
             this._super(p, {
                 sprite: "mario", sheet: "mario_small",
-                x: 150, y: 380
+                x: 150, y: 380,
             });
             this.add('2d, platformerControls');
 
@@ -98,18 +116,20 @@ window.addEventListener("load", function () {
 
     Q.scene("level1", function (stage) {
         Q.stageTMX("level.tmx", stage);  //PUESTA EN ESCENA
-
+        stage.insert(new Q.Bloopa({x: 580, y: 320}));
         stage.insert(new Q.Goomba({x: 280, y: 528}));   //Insertamos al enemigo Goomba
         var mario = stage.insert(new Q.Mario());    //Mario a escena
         stage.add("viewport").follow(mario, { x: true, y: false }); //Seguir a Mario
         stage.centerOn(150, 380);
     });
 
-    Q.load("mario_small.png, mario_small.json, goomba.png, goomba.json", function () {   //Cargamos los sprites
+    Q.load("mario_small.png, mario_small.json, goomba.png, goomba.json, bloopa.png, bloopa.json", function () {   //Cargamos los sprites
+        Q.sheet("bloopa","bloopa.png", { tilew: 28, tileh: 32 });
         Q.sheet("goomba","goomba.png", { tilew: 28, tileh: 28 });
         Q.sheet("mario_small", "mario_small.png", { tilew: 32, tileh: 32 });
         Q.compileSheets("mario_small.png", "mario_small.json");
         Q.compileSheets("goomba.png","goomba.json");
+        Q.compileSheets("bloopa.png","bloopa.json");
 
     });
 
