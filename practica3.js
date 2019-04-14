@@ -1,20 +1,24 @@
-//Eliana Aliz Chuquillanqui Julcapari
+//GAME: SUPER MARIO BROS
+//Alumna: Eliana Aliz Chuquillanqui Julcapari
 window.addEventListener("load",function() {
+	//Creamos un objeto Quintus
 	var Q = Quintus({ development: true, audioSupported: ["mp3", "ogg"] });
 	Q.include("Scenes, TMX, Sprites, 2D, UI, Touch, Input, Anim, Audio").setup({maximize: false, width: 320, height:  480});
 	Q.controls();
 	Q.touch();
 	Q.enableSound();
 
+	//cargamos los recursos para el juego
+
     Q.load("piranha.png, piranha.json, koopa.png, koopa.json, mario_small.png, mario_small.json, goomba.png, goomba.json, bloopa.png, bloopa.json, princess.png, mainTitle.png, coin.png, coin.json, coin.mp3, music_level_complete.mp3,music_main.mp3, music_die.mp3", function() {
-        Q.sheet("mainTitle","mainTitle.png", { tilew: 320, tileh: 480 });
+       Q.sheet("mainTitle","mainTitle.png", { tilew: 320, tileh: 480 });
        Q.sheet("mario_small","mario_small.png", { tilew: 32, tileh: 32 });
        Q.compileSheets("mario_small.png","mario_small.json"); 
        Q.sheet("goomba","goomba.png", { tilew: 28, tileh: 28 });
        Q.compileSheets("goomba.png","goomba.json");
        Q.sheet("bloopa","bloopa.png", { tilew: 28, tileh: 32 });
        Q.compileSheets("bloopa.png","bloopa.json");
-        Q.sheet("princess","princess.png", { tilew: 30, tileh: 48 });
+       Q.sheet("princess","princess.png", { tilew: 30, tileh: 48 });
        Q.sheet("coin","coin.png", { tilew: 34, tileh: 34 });
        Q.compileSheets("coin.png","coin.json");
        Q.sheet("koopa","koopa.png", { tilew: 31, tileh: 48 });
@@ -24,7 +28,7 @@ window.addEventListener("load",function() {
        Q.stageScene("startGame",2);
    });
 
-   Q.loadTMX("level.tmx", function(){});
+   Q.loadTMX("level.tmx", function(){});	//cargamos el nivel TMX
 
 	var gameOver = false;   //SI ES GAME OVER
 	
