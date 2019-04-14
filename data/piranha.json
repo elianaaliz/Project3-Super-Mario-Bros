@@ -1,0 +1,4 @@
+{
+	"piranha":{"sx":0,"sy":0,"tileW":32,"tileH":50,"frames":2},
+	"piranhaDie":{"sx":0,"sy":0,"tileW":32,"tileH":50,"frames":1}
+}
