@@ -1,0 +1,4 @@
+{
+	"koopa":{"sx":0,"sy":0,"tileW":32,"tileH":48,"frames":2},
+	"koopaDie":{"sx":254,"sy":0,"tileW":32,"tileH":48,"frames":3}
+}
